@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>util.js test</title>
+</head>
+<body>
+	
+	<button class="js-click">Click</button>
+	<button class="js-one-click">One Click</button>
+	<button class="js-tap">Tap</button>
+	<button class="js-one-tap">One Tap</button>
+	
+	<script src="util.js"></script>
+	<script src="util.tap.js"></script>
+	<script src="util.ajax.js"></script>
+	<script>
+	
+		$('.js-click').on('click', function(e){
+			console.log('click', this, e);
+		});
+		
+		$('.js-one-click').one('click', function(e){
+			console.log('one click', this, e);
+		});
+		
+		$('.js-tap').on('tap', function(e){
+			console.log('tap', this, e);
+		});
+		
+		$('.js-one-tap').one('tap', function(e){
+			console.log('one tap', this, e);
+		});
+	
+	</script>
+</body>
+</html>
