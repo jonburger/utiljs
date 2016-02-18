@@ -61,6 +61,11 @@
 				return this.each(function (item) {
 					item[name] = value;
 				});
+			},
+			remove: function() {
+				return this.each(function (item) {
+					item.parentNode && item.parentNode.removeChild(item);
+				});
 			}
 		};
 		
