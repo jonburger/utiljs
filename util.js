@@ -9,7 +9,7 @@
 		}
 		
 		function _(selector, scope) {
-			array.push.apply(this, selector && selector.nodeType ? [selector] : $.type(selector, 'String') ? (scope && (scope.nodeType && scope || scope[0].nodeType && scope[0]) || document).querySelectorAll(selector) : undefined);
+			array.push.apply(this, selector && (selector.nodeType || selector.window) ? [selector] : $.type(selector, 'String') ? (scope && (scope.nodeType && scope || scope[0].nodeType && scope[0]) || document).querySelectorAll(selector) : undefined);
 		}
 		
 		$.fn = _.prototype = {
