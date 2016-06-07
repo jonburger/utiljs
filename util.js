@@ -50,6 +50,14 @@
 					});
 				});
 			},
+			hasClass: function(classes) {
+				if ($.type(classes, 'String')) classes = classes.split(/\s+/g);
+				return this.each(function (item) {
+					classes.reduce(function(hasclass, classname) {
+						return hasclass && item.classList.contains(classname);
+					}, true);
+				});
+			},
 			attr: function(name, value) {
 				if (value === undefined) return this[0] && this[0].getAttribute(name) || '';
 				return this.each(function (item) {
