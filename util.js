@@ -16,12 +16,12 @@
 			length: 0,
 			splice: array.splice,
 			
-			each: function(fn, scope) {
-				array.forEach.call(this, fn, scope);
+			each: function(fn) {
+				array.forEach.call(this, function(item, i){ fn.call(item, i, item); });
 				return this;
 			},
 			on: function(event, fn) {
-				return this.each(function (item) {
+				return this.each(function (i, item) {
 					item.addEventListener(event, fn);
 				});
 			},
@@ -32,7 +32,7 @@
 				});
 			},
 			off: function(event, fn) {
-				return this.each(function (item) {
+				return this.each(function (i, item) {
 					item.removeEventListener(event, fn);
 				});
 			},
@@ -43,16 +43,16 @@
 				return this.toggleClass(classes, false);
 			},
 			toggleClass: function(classes, add) {
-				if ($.type(classes, 'String')) classes = classes.split(/\s+/g);
-				return this.each(function (item) {
+				if ($.type(classes, 'String')) classes = classes.trim().split(/\s+/g);
+				return this.each(function (i, item) {
 					classes.forEach(function(classname) {
 						item.classList[add === undefined ? 'toggle' : add && 'add' || 'remove'](classname);
 					});
 				});
 			},
 			hasClass: function(classes) {
-				if ($.type(classes, 'String')) classes = classes.split(/\s+/g);
-				return this.each(function (item) {
+				if ($.type(classes, 'String')) classes = classes.trim().split(/\s+/g);
+				return this.each(function (i, item) {
 					classes.reduce(function(hasclass, classname) {
 						return hasclass && item.classList.contains(classname);
 					}, true);
@@ -60,18 +60,18 @@
 			},
 			attr: function(name, value) {
 				if (value === undefined) return this[0] && this[0].getAttribute(name) || '';
-				return this.each(function (item) {
+				return this.each(function (i, item) {
 					item.setAttribute(name, value);
 				});
 			},
 			prop: function(name, value) {
 				if (value === undefined) return this[0] && this[0][name] || '';
-				return this.each(function (item) {
+				return this.each(function (i, item) {
 					item[name] = value;
 				});
 			},
 			remove: function() {
-				return this.each(function (item) {
+				return this.each(function (i, item) {
 					item.parentNode && item.parentNode.removeChild(item);
 				});
 			}
