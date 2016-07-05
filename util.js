@@ -52,11 +52,12 @@
 			},
 			hasClass: function(classes) {
 				if ($.type(classes, 'String')) classes = classes.trim().split(/\s+/g);
-				return this.each(function (i, item) {
-					classes.reduce(function(hasclass, classname) {
-						return hasclass && item.classList.contains(classname);
-					}, true);
-				});
+				return classes.reduce(function(hasclass, classname) {
+					this.each(function (i, item) {
+						hasclass &= item.classList.contains(classname);
+					});
+					return hasclass;
+				}, true);
 			},
 			attr: function(name, value) {
 				if (value === undefined) return this[0] && this[0].getAttribute(name) || '';
@@ -74,6 +75,11 @@
 				return this.each(function (i, item) {
 					item.parentNode && item.parentNode.removeChild(item);
 				});
+			},
+			is: function(selector) {
+				return this.length && array.slice.call(this).reduce(function(matches, item) {
+					return matches && (item.matches || item.matchesSelector)(selector);
+				}, true);
 			}
 		};
 		
