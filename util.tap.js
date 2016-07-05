@@ -39,8 +39,8 @@
 	function onClick(e) {
 		e.stopPropagation();
 		// avoid ghostclicks
-		if (new Date() - lastClick > 500) {
-			lastClick = new Date();
+		if (Date.now() - lastClick > 500) {
+			lastClick = Date.now();
 			this._tap && this._tap.call(this, e);
 		}
 	}
